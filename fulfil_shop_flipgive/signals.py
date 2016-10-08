@@ -4,19 +4,17 @@ from shop.globals import current_cart
 
 
 def copy_flipgive_id(sender):
-    "Copy flipgive_token to created party"
+    "Copy flipgive_campaign to created party"
     cart = current_cart
-    # Save FlipGive Token to Party if available in Cart
-    if cart.flipgive_token:
-        party = cart.sale.party
-        party.flipgive_token = cart.flipgive_token
-        party.save()
-
-    # Save FlipGive instance to Sale if available in Cart
-    if cart.flipgive_campaign:
+    # Save FlipGive Campaign to sale and party if available in Cart
+    if cart.flipgive_campaign and cart.sale:
         sale = cart.sale
         sale.flipgive_campaign = cart.flipgive_campaign.id
         sale.save()
+
+        party = cart.sale.party
+        party.flipgive_campaign = cart.flipgive_campaign.id
+        party.save()
 
 
 def register_signals(app):

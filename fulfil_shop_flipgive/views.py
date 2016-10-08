@@ -22,9 +22,8 @@ def flipgive_campaign():
         flash(_('Congratulations! Your purchase will sponsor %s' %
                 flipgive_campaign.name))
 
-        # save the token & flipgive_campaign_id in current cart
+        # save the flipgive_campaign_id in current cart
         cart = Cart.get_active()
-        cart.flipgive_token = flipgive_token
         cart.flipgive_campaign = flipgive_campaign_id
         cart.save()
 
@@ -34,7 +33,7 @@ def flipgive_campaign():
             sale.save()
         if cart.sale and cart.sale.party:
             party = cart.sale.party
-            party.flipgive_token = cart.flipgive_token
+            party.flipgive_campaign = cart.flipgive_campaign.id
             party.save()
 
     return redirect(url_for('public.home'))
