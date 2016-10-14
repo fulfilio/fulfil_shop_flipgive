@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class FlipGive(object):
 
     def __init__(self, app=None):

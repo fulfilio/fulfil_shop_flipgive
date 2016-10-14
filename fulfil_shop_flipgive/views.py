@@ -15,6 +15,7 @@ blueprint = Blueprint(
 @blueprint.route('/campaign-landing')
 def flipgive_campaign():
     flipgive_token = request.args.get('token')
+    redirect_url = request.args.get('redirect')
 
     if flipgive_token:
         flipgive_campaign_id = FlipGiveCampaign.rpc.get_from(flipgive_token)
@@ -36,4 +37,4 @@ def flipgive_campaign():
             party.flipgive_campaign = cart.flipgive_campaign.id
             party.save()
 
-    return redirect(url_for('public.home'))
+    return redirect(redirect_url or url_for('public.home'))
