@@ -15,6 +15,7 @@ def copy_flipgive_id(sender, sale=None):
     # Save FlipGive Campaign to sale and party if available in Cart
     if flipgive_campaign_id and sale:
         sale.flipgive_campaign = flipgive_campaign_id
+        sale.flipgive_token = session.get('flipgive_token')
         sale.save()
 
         party = sale.party
