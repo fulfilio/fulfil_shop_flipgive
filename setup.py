@@ -12,7 +12,7 @@ requirements = [
 
 setup(
     name='fulfil_shop_flipgive',
-    version='0.1.3',
+    version='0.1.4',
     description="Flip Give Extension for Flip Give.",
     long_description=readme,
     author="Fulfil.io",
