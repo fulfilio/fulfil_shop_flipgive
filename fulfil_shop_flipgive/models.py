@@ -9,6 +9,7 @@ from shop.fulfilio import Model
 
 class Sale(shop.cart.models.Sale):
     flipgive_campaign = ModelType("flipgive.campaign")
+    flipgive_token = StringType()
 
 shop.cart.models.Sale = Sale
 
