@@ -35,6 +35,7 @@ def flipgive_campaign():
         if cart.sale:
             sale = cart.sale
             sale.flipgive_campaign = cart.flipgive_campaign.id
+            sale.flipgive_token = flipgive_token
             sale.save()
         if cart.sale and cart.sale.party:
             party = cart.sale.party
