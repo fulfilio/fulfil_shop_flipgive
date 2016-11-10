@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Product views."""
-from flask import Blueprint, flash, request, redirect, url_for
+from flask import Blueprint, flash, request, redirect, url_for, session
 from flask_babel import gettext as _
 
 from fulfil_shop_flipgive.models import FlipGiveCampaign
@@ -20,6 +20,10 @@ def flipgive_campaign():
     if flipgive_token:
         flipgive_campaign_id = FlipGiveCampaign.rpc.get_from(flipgive_token)
         flipgive_campaign = FlipGiveCampaign.get_by_id(flipgive_campaign_id)
+
+        session['flipgive_token'] = flipgive_token
+        session['flipgive_campaign_id'] = flipgive_campaign_id
+
         flash(_('Congratulations! Your purchase will sponsor %s' %
                 flipgive_campaign.name))
 
