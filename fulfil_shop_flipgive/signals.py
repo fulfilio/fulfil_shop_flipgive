@@ -9,7 +9,7 @@ def copy_flipgive_id(sender, sale=None):
     cart = current_cart
     flipgive_campaign_id = \
         (cart.flipgive_campaign and cart.flipgive_campaign.id) or \
-            session['flipgive_campaign_id']
+            session.get('flipgive_campaign_id')
 
     sale = sale or cart.sale
 
