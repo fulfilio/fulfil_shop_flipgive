@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 from flask import session
-from shop.signals import sale_created
+from shop.signals import sale_created, sale_transferred
 from shop.globals import current_cart
 
 
 def copy_flipgive_id(sender, sale=None):
     "Copy flipgive_campaign to created party"
     cart = current_cart
-    flipgive_campaign_id = \
-        (cart.flipgive_campaign and cart.flipgive_campaign.id) or \
-            session.get('flipgive_campaign_id')
+    flipgive_campaign_id = session.get('flipgive_campaign_id') or \
+        (cart.flipgive_campaign and cart.flipgive_campaign.id)
 
     sale = sale or cart.sale
 
@@ -26,3 +25,4 @@ def copy_flipgive_id(sender, sale=None):
 def register_signals(app):
     "Registers signals with app"
     sale_created.connect(copy_flipgive_id, app)
+    sale_transferred.connect(copy_flipgive_id, app)
