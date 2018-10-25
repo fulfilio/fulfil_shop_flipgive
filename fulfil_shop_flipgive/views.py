@@ -3,6 +3,7 @@
 from flask import Blueprint, flash, request, redirect, url_for, session
 from flask_babel import gettext as _
 
+from fulfil_client import ClientError
 from fulfil_shop_flipgive.models import FlipGiveCampaign
 from shop.cart.models import Cart
 
@@ -18,7 +19,13 @@ def flipgive_campaign():
     redirect_url = request.args.get('redirect')
 
     if flipgive_token:
-        flipgive_campaign_id = FlipGiveCampaign.rpc.get_from(flipgive_token)
+        try:
+            flipgive_campaign_id = FlipGiveCampaign.rpc.get_from(flipgive_token)
+        except ClientError:
+            flash(_('Error in identifying campaign.'), 'error')
+            # Flipgive token is wrong
+            return redirect(url_for('public.home'))
+
         flipgive_campaign = FlipGiveCampaign.get_by_id(flipgive_campaign_id)
 
         session['flipgive_token'] = flipgive_token
