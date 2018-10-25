@@ -11,11 +11,13 @@ class Sale(shop.cart.models.Sale):
     flipgive_campaign = ModelType("flipgive.campaign", cache=True)
     flipgive_token = StringType()
 
+
 shop.cart.models.Sale = Sale
 
 
 class Cart(shop.cart.models.Cart):
     flipgive_campaign = ModelType("flipgive.campaign", cache=True)
+
 
 shop.cart.models.Cart = Cart
 
@@ -25,6 +27,7 @@ class Party(shop.user.models.Party):
     # shopping multiple times (especially phone order). In case, the
     # user comes from different FlipGive Campaign, this should be updated.
     flipgive_campaign = ModelType("flipgive.campaign", cache=True)
+
 
 shop.user.models.Party = Party
 
